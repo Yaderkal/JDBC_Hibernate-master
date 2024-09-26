@@ -8,7 +8,7 @@ import jm.task.core.jdbc.util.Util;
 import java.sql.SQLException;
 import java.util.List;
 
-public class UserServiceImpl extends Util implements UserService  {
+public class UserServiceImpl implements UserService  {
     UserDao userDao = new UserDaoJDBCImpl();
 
     public void createUsersTable() {
@@ -26,7 +26,7 @@ public class UserServiceImpl extends Util implements UserService  {
         System.out.println("сохранен пользователь " + name + " " + lastName + " " + age);
     }
 
-    public void removeUserById(long id) {
+    public void removeUserById(long id) throws SQLException {
         this.userDao.removeUserById(id);
         System.out.println("пользователь с id " + id + " удален");
     }
