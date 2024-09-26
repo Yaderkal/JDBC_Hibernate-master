@@ -16,10 +16,7 @@ public class UserDaoJDBCImpl implements UserDao {
 
     public void createUsersTable() {
         try (Statement statement = connection.createStatement()) {
-            String query = "CREATE TABLE IF NOT EXISTS USER (" +
-                    "NAME VARCHAR(60)," +
-                    "LASTNAME VARCHAR(60)," +
-                    "AGE INT)";
+            String query = ("CREATE TABLE IF NOT EXISTS User ( id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY, name VARCHAR(255), lastname VARCHAR(255), AGE INT)");
             statement.executeUpdate(query);
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -50,7 +47,7 @@ public class UserDaoJDBCImpl implements UserDao {
 
     public void removeUserById(long id) throws SQLException {
         String query = "DELETE FROM USER WHERE ID = id";
-        try (Statement statement = connection.createStatement()){
+        try (Statement statement = connection.createStatement()) {
             statement.executeUpdate(query);
         } catch (SQLException e) {
             e.printStackTrace();
