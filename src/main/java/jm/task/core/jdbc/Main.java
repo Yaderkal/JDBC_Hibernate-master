@@ -9,18 +9,18 @@ import java.sql.SQLException;
 public class Main {
     public static void main(String[] args) throws SQLException {
         Util.getConnection();
-        UserService userDao = new UserServiceImpl();
+        UserService userService = new UserServiceImpl();
 
-        userDao.createUsersTable();
+        userService.createUsersTable();
 
-        userDao.saveUser("Ivan", "Ivanov", (byte) 20);
-        userDao.saveUser("Cheslav", "Rochev", (byte) 25);
-        userDao.saveUser("Nick", "Valentine", (byte) 31);
-        userDao.saveUser("Rick", "Grimes", (byte) 38);
+        userService.saveUser("Ivan", "Ivanov", (byte) 20);
+        userService.saveUser("Cheslav", "Rochev", (byte) 25);
+        userService.saveUser("Nick", "Valentine", (byte) 31);
+        userService.saveUser("Rick", "Grimes", (byte) 38);
 
-        userDao.removeUserById(1);
-        userDao.getAllUsers();
-        userDao.cleanUsersTable();
-        userDao.dropUsersTable();
+        userService.removeUserById(1);
+        userService.getAllUsers();
+        userService.cleanUsersTable();
+        userService.dropUsersTable();
     }
 }
