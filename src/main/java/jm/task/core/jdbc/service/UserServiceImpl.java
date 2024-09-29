@@ -11,32 +11,32 @@ public class UserServiceImpl implements UserService  {
     private final UserDao userDao = new UserDaoJDBCImpl();
 
     public void createUsersTable() {
-        this.userDao.createUsersTable();
+        userDao.createUsersTable();
         System.out.println("Таблица создана");
     }
 
     public void dropUsersTable() throws SQLException {
-        this.userDao.dropUsersTable();
+        userDao.dropUsersTable();
         System.out.println("удалена таблица");
     }
 
     public void saveUser(String name, String lastName, byte age) throws SQLException {
-        this.userDao.saveUser(name, lastName, age);
+        userDao.saveUser(name, lastName, age);
         System.out.println("сохранен пользователь " + name + " " + lastName + " " + age);
     }
 
     public void removeUserById(long id) throws SQLException {
-        this.userDao.removeUserById(id);
+        userDao.removeUserById(id);
         System.out.println("пользователь с id " + id + " удален");
     }
 
     public List<User> getAllUsers() throws SQLException {
-        System.out.println(this.userDao.getAllUsers());
-        return this.userDao.getAllUsers();
+        System.out.println(userDao.getAllUsers());
+        return userDao.getAllUsers();
     }
 
     public void cleanUsersTable() {
-        this.userDao.cleanUsersTable();
+        userDao.cleanUsersTable();
         System.out.println("Таблица очищена");
     }
 }
