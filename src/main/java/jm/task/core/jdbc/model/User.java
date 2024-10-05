@@ -66,7 +66,8 @@ public class User {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof User user)) return false;
-        return Objects.equals(getId(), user.getId()) && Objects.equals(getName(), user.getName()) && Objects.equals(getLastName(), user.getLastName()) && Objects.equals(getAge(), user.getAge());
+        return Objects.equals(getId(), user.getId()) && Objects.equals(getName(), user.getName()) &&
+                Objects.equals(getLastName(), user.getLastName()) && Objects.equals(getAge(), user.getAge());
     }
 
     @Override
