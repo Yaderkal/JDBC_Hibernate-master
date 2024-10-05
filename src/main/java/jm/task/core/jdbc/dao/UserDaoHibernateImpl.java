@@ -6,6 +6,9 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 
+import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+import java.util.Arrays;
 import java.util.List;
 
 public class UserDaoHibernateImpl implements UserDao {
@@ -20,17 +23,18 @@ public class UserDaoHibernateImpl implements UserDao {
     public void createUsersTable() {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
-            Query query = session.createSQLQuery("CREATE TABLE IF NOT EXISTS User ( id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY, name VARCHAR(255), lastname VARCHAR(255), AGE INT)");
-            query.executeUpdate();
+            session.createSQLQuery("CREATE TABLE IF NOT EXISTS User ( id BIGINT NOT NULL AUTO_INCREMENT " +
+                    "PRIMARY KEY, name VARCHAR(255), lastname VARCHAR(255), AGE INT)").executeUpdate();
+            session.getTransaction().commit();
         }
     }
 
     @Override
     public void dropUsersTable() {
         try (Session session = sessionFactory.openSession()) {
-            Query query = session.createSQLQuery("DROP TABLE IF EXISTS User");
             session.beginTransaction();
-            query.executeUpdate();
+            session.createSQLQuery("DROP TABLE IF EXISTS User").executeUpdate();
+            session.getTransaction().commit();
         }
     }
 
@@ -48,27 +52,24 @@ public class UserDaoHibernateImpl implements UserDao {
     public void removeUserById(long id) {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
-            User user = session.load(User.class, id);
-            session.delete(user);
+            Query query = session.createQuery("delete User where id = id");
+            query.executeUpdate();
             session.getTransaction().commit();
         }
     }
 
     @Override
     public List<User> getAllUsers() {
-        try (Session session = sessionFactory.openSession()) {
-            return (List<User>) session.createCriteria(User.class).list();
-        }
+        EntityManager em = sessionFactory.createEntityManager();
+        TypedQuery<User> query = em.createQuery("FROM User", User.class);
+        return query.getResultList();
     }
 
     @Override
     public void cleanUsersTable() {
-        try (Session session = Util.getSessionFactory().openSession()) {
+        try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
-            List<User> users = session.createQuery("from User").list();
-            for (User user : users) {
-                session.delete(user);
-            }
+            session.createQuery("DELETE FROM User").executeUpdate();
             session.getTransaction().commit();
         }
     }

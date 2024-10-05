@@ -5,10 +5,11 @@ import jm.task.core.jdbc.dao.UserDaoHibernateImpl;
 import jm.task.core.jdbc.model.User;
 
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.List;
 
 public class UserServiceImpl implements UserService {
-    UserDao userDao = new UserDaoHibernateImpl();
+    private final UserDao userDao = new UserDaoHibernateImpl();
 
     public void createUsersTable() {
         this.userDao.createUsersTable();
@@ -26,12 +27,15 @@ public class UserServiceImpl implements UserService {
     }
 
     public void removeUserById(long id) {
-        this.userDao.removeUserById(id);
         System.out.println("пользователь с id " + id + " удален");
+        this.userDao.removeUserById(id);
     }
 
     public List<User> getAllUsers() throws SQLException {
-        System.out.println(this.userDao.getAllUsers());
+        List<User> users =  this.userDao.getAllUsers();
+        for (User user : users) {
+            System.out.println(user);
+        }
         return this.userDao.getAllUsers();
     }
 
