@@ -2,6 +2,7 @@ package jm.task.core.jdbc.service;
 
 import jm.task.core.jdbc.dao.UserDao;
 import jm.task.core.jdbc.dao.UserDaoHibernateImpl;
+import jm.task.core.jdbc.dao.UserDaoJDBCImpl;
 import jm.task.core.jdbc.model.User;
 
 import java.sql.SQLException;
@@ -9,7 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class UserServiceImpl implements UserService {
-    private final UserDao userDao = new UserDaoHibernateImpl();
+    private final UserDao userDao = new UserDaoJDBCImpl();
 
     public void createUsersTable() {
         this.userDao.createUsersTable();
@@ -33,6 +34,9 @@ public class UserServiceImpl implements UserService {
 
     public List<User> getAllUsers() throws SQLException {
         List<User> users =  this.userDao.getAllUsers();
+        if (users.isEmpty()) {
+            System.out.println("Список пуст");
+        }
         for (User user : users) {
             System.out.println(user);
         }
