@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface UserService {
-    void createUsersTable();
+    void createUsersTable() throws  SQLException;
 
     void dropUsersTable() throws SQLException;
 
@@ -16,5 +16,5 @@ public interface UserService {
 
     List<User> getAllUsers() throws SQLException;
 
-    void cleanUsersTable();
+    void cleanUsersTable() throws  SQLException;
 }

@@ -19,8 +19,11 @@ public class Util {
 
     private static final String username = "root";
     private static final String password = "root";
+    private Util() {
 
-    public static void main(String[] args) {
+    }
+
+    public static void main(String[] args) throws SQLException {
     }
 
     public static Connection getConnection() {
@@ -71,5 +74,17 @@ public class Util {
             }
         }
         return sessionFactory;
+    }
+    public static void closeConnection() {
+        Connection connection = Util.getConnection();
+        if (connection != null) {
+            try {
+                connection.close();
+                System.out.println("JDBC соединение закрыто");
+            } catch (SQLException e) {
+                System.err.println("Ошибка при закрытии JDBC соединения: " + e.getMessage());
+                e.printStackTrace();
+            }
+        }
     }
 }
