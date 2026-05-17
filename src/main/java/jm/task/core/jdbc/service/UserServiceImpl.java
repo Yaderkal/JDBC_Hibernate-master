@@ -10,28 +10,28 @@ import java.util.Arrays;
 import java.util.List;
 
 public class UserServiceImpl implements UserService {
-    private final UserDao userDao = new UserDaoJDBCImpl();
-
-    public void createUsersTable() {
+    private final UserDao userDao = new UserDaoHibernateImpl();
+    @Override
+    public void createUsersTable() throws  SQLException {
         this.userDao.createUsersTable();
         System.out.println("Таблица создана");
     }
-
+    @Override
     public void dropUsersTable() throws SQLException {
         this.userDao.dropUsersTable();
         System.out.println("удалена таблица");
     }
-
+    @Override
     public void saveUser(String name, String lastName, byte age) throws SQLException {
         this.userDao.saveUser(name, lastName, age);
         System.out.println("сохранен пользователь " + name + " " + lastName + " " + age);
     }
-
+    @Override
     public void removeUserById(long id) {
         System.out.println("пользователь с id " + id + " удален");
         this.userDao.removeUserById(id);
     }
-
+    @Override
     public List<User> getAllUsers() throws SQLException {
         List<User> users =  this.userDao.getAllUsers();
         if (users.isEmpty()) {
@@ -42,7 +42,7 @@ public class UserServiceImpl implements UserService {
         }
         return this.userDao.getAllUsers();
     }
-
+    @Override
     public void cleanUsersTable() {
         this.userDao.cleanUsersTable();
         System.out.println("Таблица очищена");
